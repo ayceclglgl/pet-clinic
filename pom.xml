@@ -35,20 +35,20 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-release-plugin</artifactId> -->
-<!-- 				<configuration> -->
-<!-- 					<goals>install</goals> -->
-<!-- 					<autoVersionSubmodules>true</autoVersionSubmodules> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<goals>install</goals>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	
-<!-- 	<scm> -->
-<!-- 		<developerConnection>scm:git:</developerConnection> -->
-<!-- 	</scm> -->
+	<scm>
+		<developerConnection>scm:git:https://github.com/ayceclglgl/pet-clinic.git</developerConnection>
+	</scm>
 
 
 </project>
