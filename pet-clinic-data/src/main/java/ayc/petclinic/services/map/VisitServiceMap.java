@@ -1,21 +1,16 @@
 package ayc.petclinic.services.map;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import ayc.petclinic.model.Visit;
-import ayc.petclinic.services.PetService;
 import ayc.petclinic.services.VisitService;
 
 @Service
+@Profile({"default", "map"})
 public class VisitServiceMap extends AbstractMapService<Visit, Long> 
 implements VisitService{
 
-	private PetService petService;
-	
-	public VisitServiceMap(PetService petService) {
-		this.petService = petService;
-	}
-	
 	@Override
 	public Visit save(Visit visit) {
 		if(visit.getPet() == null || visit.getPet().getId() ==null || 

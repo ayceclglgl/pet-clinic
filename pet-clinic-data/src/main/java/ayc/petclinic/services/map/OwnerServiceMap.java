@@ -1,5 +1,6 @@
 package ayc.petclinic.services.map;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import ayc.petclinic.model.Owner;
@@ -10,6 +11,7 @@ import ayc.petclinic.services.PetService;
 import ayc.petclinic.services.PetTypeService;
 
 @Service
+@Profile({"default", "map"})
 public class OwnerServiceMap extends AbstractMapService<Owner, Long>
 implements OwnerService{
 	
@@ -56,10 +58,6 @@ implements OwnerService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-
 
 	
 
