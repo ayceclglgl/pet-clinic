@@ -11,10 +11,12 @@ import ayc.petclinic.model.Pet;
 import ayc.petclinic.model.PetType;
 import ayc.petclinic.model.Speciality;
 import ayc.petclinic.model.Vet;
+import ayc.petclinic.model.Visit;
 import ayc.petclinic.services.OwnerService;
 import ayc.petclinic.services.PetTypeService;
 import ayc.petclinic.services.SpecialityService;
 import ayc.petclinic.services.VetService;
+import ayc.petclinic.services.VisitService;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -24,14 +26,17 @@ public class DataLoader implements CommandLineRunner {
 	private final PetTypeService petTypeService;
 //	private final PetService petService;
 	private final SpecialityService specialityService;
+	private final VisitService visitService;
 	
 	public DataLoader(OwnerService ownerService, VetService vetService,
-			PetTypeService petTypeService,SpecialityService specialityService) {
+			PetTypeService petTypeService,SpecialityService specialityService,
+			 VisitService visitService) {
 		this.ownerService = ownerService;
 		this.vetService = vetService;
 		this.petTypeService = petTypeService;
 //		this.petService = petService;
 		this.specialityService = specialityService;
+		this.visitService = visitService;
 	}
 	
 	@Override
@@ -75,10 +80,7 @@ public class DataLoader implements CommandLineRunner {
 		michealPets.setPetType(savedDogPetType);
 //		petService.save(michealPets);
 		owner1.getPets().add(michealPets);
-		
 		ownerService.save(owner1);
-		
-		
 		
 		Owner owner2 = new Owner();
 		owner2.setFirstName("Mike");
@@ -94,9 +96,19 @@ public class DataLoader implements CommandLineRunner {
 		mikesPets.setPetType(savedCatPetType);
 //		petService.save(mikesPets);
 		owner2.getPets().add(mikesPets);
-		
 		ownerService.save(owner2);
 		
+		Visit catVisit = new Visit();
+		catVisit.setDate(LocalDate.now());
+		catVisit.setDescription("Cat Visit");
+		catVisit.setPet(mikesPets);
+		visitService.save(catVisit);
+		
+		Visit dogVisit = new Visit();
+		dogVisit.setDate(LocalDate.now());
+		dogVisit.setDescription("Dog Visit");
+		dogVisit.setPet(michealPets);
+		visitService.save(dogVisit);
 		
 		Vet vet1 = new Vet();
 		vet1.setFirstName("Jonh");
@@ -110,7 +122,6 @@ public class DataLoader implements CommandLineRunner {
 		vet2.getSpeciality().add(savedSurgery);
 		vetService.save(vet2);
 
-		
 		System.out.println("Datas are loaded..");
 	}
 
