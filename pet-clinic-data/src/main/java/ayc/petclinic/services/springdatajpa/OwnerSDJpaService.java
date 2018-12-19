@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import ayc.petclinic.model.Owner;
+import ayc.petclinic.model.Pet;
+import ayc.petclinic.model.PetType;
 import ayc.petclinic.repositories.OwnerRepository;
 import ayc.petclinic.repositories.PetRepository;
 import ayc.petclinic.repositories.PetTypeRepository;
@@ -43,7 +45,26 @@ public class OwnerSDJpaService implements OwnerService {
 
 	@Override
 	public Owner save(Owner object) {
-		return ownerRepository.save(object);
+		if (object != null) {
+			object.getPets().forEach(p -> {
+				if (p.getId() == null) {
+					Pet savedPet = petRepository.save(p);
+					p.setId(savedPet.getId());
+				}
+				if (p.getPetType() != null) {
+					if (p.getPetType().getId() == null) {
+						PetType savedPetType = petTypeRepository.save(p.getPetType());
+						p.getPetType().setId(savedPetType.getId());
+					}
+				} else {
+					throw new RuntimeException("PetType can not be null");
+				}
+			});
+			return ownerRepository.save(object);
+		}else {
+			return null;
+		}
+
 	}
 
 	@Override

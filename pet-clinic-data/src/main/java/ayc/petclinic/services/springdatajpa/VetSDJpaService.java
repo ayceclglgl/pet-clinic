@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import ayc.petclinic.model.Speciality;
 import ayc.petclinic.model.Vet;
 import ayc.petclinic.repositories.SpecialityRepository;
 import ayc.petclinic.repositories.VetRepository;
@@ -38,6 +39,16 @@ public class VetSDJpaService implements VetService {
 
 	@Override
 	public Vet save(Vet object) {
+		if(object.getSpeciality().size() > 0) {
+			object.getSpeciality().forEach(s -> {
+				if(s.getId() == null) {
+					Speciality savedSpeciality = specialityRepository.save(s);
+					s.setId(savedSpeciality.getId());
+				}
+			});
+		}else {
+			throw new RuntimeException("Specality can not be null");
+		}
 		return vetRepository.save(object);
 	}
 
