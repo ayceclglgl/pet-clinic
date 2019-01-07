@@ -55,8 +55,11 @@ implements OwnerService{
 
 	@Override
 	public Owner findByLastName(String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.findAll()
+				.stream()
+				.filter(ln -> ln.getLastName().equals(lastName))
+				.findAny()
+				.orElse(null);
 	}
 
 	
