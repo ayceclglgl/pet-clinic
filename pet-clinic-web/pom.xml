@@ -87,7 +87,11 @@
 			<artifactId>junit-platform-launcher</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+		<dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
 		
 		 <!-- webjars (jars exist on the original spring pet clinic application)-->
         <dependency>
