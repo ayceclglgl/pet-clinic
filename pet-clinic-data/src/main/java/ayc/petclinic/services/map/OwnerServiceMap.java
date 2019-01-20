@@ -1,5 +1,8 @@
 package ayc.petclinic.services.map;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +65,14 @@ implements OwnerService{
 				.orElse(null);
 	}
 
+
+	@Override
+	public List<Owner> findAllByLastNameLike(String lastName) {
+		return super.findAll()
+				.stream()
+				.filter(ln -> ln.getLastName().contains((lastName)))
+				.collect(Collectors.toList());
+	}
 	
 
 }
