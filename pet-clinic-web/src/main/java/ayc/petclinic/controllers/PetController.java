@@ -53,6 +53,7 @@ public class PetController {
 		return petTypeService.findAll();
 	}
 	
+	//Spring MVC calls method populatePetTypes and findOwner before newPet is called.
 	@GetMapping("/pets/new")
 	public String newPet(Owner owner, Model m) {
 		Pet pet = new Pet();
@@ -63,6 +64,8 @@ public class PetController {
 		return CREATE_OR_UPDATE_PET_FORM_VIEW;
 	}
 	
+
+	//Spring MVC calls method populatePetTypes and processNewPet before newPet is called.
 	@PostMapping("/pets/new")
 	public String processNewPet(Owner owner, @Valid Pet pet, BindingResult result, Model m) {
 		if(StringUtils.hasLength(pet.getName()) && pet.isNew() 
@@ -74,8 +77,8 @@ public class PetController {
 			m.addAttribute("pet", pet);
 			return CREATE_OR_UPDATE_PET_FORM_VIEW;
 		}else {
-			petService.save(pet); //?
-			pet.setOwner(owner); //?
+			petService.save(pet);
+			pet.setOwner(owner);
 			return "redirect:/owners/" + owner.getId(); //"redirect:/owners/{ownerId}"
 			
 		}
@@ -95,7 +98,7 @@ public class PetController {
 			return CREATE_OR_UPDATE_PET_FORM_VIEW;
 		}else {
 			owner.getPets().add(pet);
-			//pet.setOwner(owner);
+			pet.setOwner(owner);
 			petService.save(pet);
 			return "redirect:/owners/" + owner.getId();
 		}
