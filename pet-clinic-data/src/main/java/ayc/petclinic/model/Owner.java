@@ -1,6 +1,7 @@
 package ayc.petclinic.model;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -24,6 +25,24 @@ public class Owner extends Person {
 	@Column(name = "telephone")
 	private String telephone;
 
+	
+	public Pet getPet(String name) {
+		return getPet(name, false);
+	}
+	
+	public Pet getPet(String name, boolean ignoreNew) {
+		String lName = name.toLowerCase();
+		Optional<Pet> optionalPet = this.getPets()
+				.stream()
+				.filter(pet -> {
+					if(pet.getName() != null && pet.getName().toLowerCase().equals(lName)) {
+						return true;
+					}
+					return false;
+					})
+				.findFirst();
+		return optionalPet.orElse(null);
+	}
 	
 	public String getAddress() {
 		return address;
